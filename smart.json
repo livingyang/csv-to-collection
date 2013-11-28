@@ -1,8 +1,8 @@
 {
-  "name": "json-loader",
-  "description": "load json for meteor client and server",
-  "homepage": "https://github.com/livingyang/json-loader",
+  "name": "csv-to-collection",
+  "description": "load csv and create meteor collection",
+  "homepage": "https://github.com/livingyang/csv-to-collection",
   "author": "living li",
-  "version": "0.0.2",
-  "git": "https://github.com/livingyang/json-loader.git"
+  "version": "0.0.1",
+  "git": "https://github.com/livingyang/csv-to-collection.git"
 }
