@@ -15,6 +15,7 @@ public/myData.csv:
 
 lib/MyData.coffee:
 
-	TestCollection = CreateCollectionFromCsv "myData.csv", (isSuccess, collection) ->
-		console.log isSuccess
-		console.log collection.find().fetch()
+	TestCollection = CreateCollectionFromPublicCsv "myData.csv"
+
+	Meteor.startup ->
+		console.log TestCollection
