@@ -218,25 +218,28 @@
         return objects;
     };
 
-  this.CreateCollectionFromCsv = function(path, completeFunc) {
-    var collection;
-    collection = new Meteor.Collection(null);
-    HTTP.get(Meteor.absoluteUrl(path), function(error, result) {
-      var e, object, _i, _len, _ref;
-      try {
-        _ref = CSV.parse(result.content);
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          object = _ref[_i];
-          collection.insert(object);
+    this.CreateCollectionFromCsv = function(path, collectionName) {
+      var collection, e, object, _i, _len, _ref;
+      collection = new Meteor.Collection(collectionName != null ? collectionName : path.split("/").pop());
+      if (Meteor.isServer) {
+        collection.remove({});
+        try {
+          _ref = CSV.parse(String(Npm.require('fs').readFileSync(path)));
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            object = _ref[_i];
+            collection.insert(object);
+          }
+        } catch (_error) {
+          e = _error;
+          console.log(e);
+          console.log("CreateCollectionFromCsv failed path: " + path);
         }
-        return typeof completeFunc === "function" ? completeFunc(true, collection) : void 0;
-      } catch (_error) {
-        e = _error;
-        console.log("CreateCollectionFromCsv failed path: " + path);
-        return typeof completeFunc === "function" ? completeFunc(false, collection) : void 0;
       }
-    });
-    return collection;
-  };
+      return collection;
+    };
+
+    this.CreateCollectionFromPublicCsv = function(publicPath, collectionName) {
+      return this.CreateCollectionFromCsv("../client/app/" + publicPath, collectionName);
+    };
 
 }).call(this);

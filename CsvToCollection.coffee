@@ -1,13 +1,16 @@
 
-@CreateCollectionFromCsv = (path, completeFunc) ->
-	collection = new Meteor.Collection null
+@CreateCollectionFromCsv = (path, collectionName) ->
+	collection = new Meteor.Collection collectionName ? path.split("/").pop()
 
-	HTTP.get (Meteor.absoluteUrl path), (error, result) ->
+	if Meteor.isServer
+		collection.remove {}
 		try
-			collection.insert object for object in CSV.parse result.content
-			completeFunc? true, collection
+			collection.insert object for object in CSV.parse String(Npm.require('fs').readFileSync path)
 		catch e
+			console.log e
 			console.log "CreateCollectionFromCsv failed path: #{path}"
-			completeFunc? false, collection
-		
+
 	collection
+
+@CreateCollectionFromPublicCsv = (publicPath, collectionName) ->
+	@CreateCollectionFromCsv "../client/app/#{publicPath}", collectionName
