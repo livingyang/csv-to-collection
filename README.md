@@ -15,7 +15,11 @@ public/myData.csv:
 
 lib/MyData.coffee:
 
+	# Now meteor server will create a Collection named "myData.csv"
+	# and will publish to client
 	TestCollection = CreateCollectionFromPublicCsv "myData.csv"
 
 	Meteor.startup ->
 		console.log TestCollection
+
+Note: coffeescript is not necessary, only CsvToCollection.js package to your project.
