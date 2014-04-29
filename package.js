@@ -3,5 +3,6 @@ Package.describe({
 });
 
 Package.on_use(function (api) {
+	Npm.depends({csvtojson: '0.3.4'});
 	api.add_files(['CsvToCollection.js'], ['client', 'server']);
 });
