@@ -14,3 +14,8 @@
 
 @CreateCollectionFromPublicCsv = (publicPath, collectionName) ->
 	@CreateCollectionFromCsv "../client/app/#{publicPath}", collectionName
+
+@CsvToCollection = {}
+
+if Meteor.isServer
+	@CsvToCollection._csvtojson = Npm.require 'csvtojson'
