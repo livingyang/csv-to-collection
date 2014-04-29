@@ -18,8 +18,10 @@ csvtojson = Npm.require 'csvtojson'
 		if Meteor.isServer
 			csvConverter = new csvtojson.core.Converter()
 			csvConverter.on 'end_parsed', (jsonArray) ->
-				Fibers(-> collection.insert doc for doc in jsonArray).run()
-				onComplete? jsonArray
+				Fibers ->
+					collection.insert doc for doc in jsonArray
+					onComplete? jsonArray
+				.run()
 			fs.createReadStream("../client/app/#{publicFilePath}").pipe(csvConverter)
 
 # @CreateCollectionFromCsv = (path, collectionName) ->
