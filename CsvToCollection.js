@@ -242,4 +242,8 @@
       return this.CreateCollectionFromCsv("../client/app/" + publicPath, collectionName);
     };
 
+    if (Meteor.isServer) {
+        console.log(Npm.require('csvtojson'));
+    };
+    
 }).call(this);
