@@ -31,17 +31,15 @@
       if (Meteor.isServer) {
         csvConverter = new csvtojson.core.Converter();
         csvConverter.on('end_parsed', function(jsonArray) {
-          Fibers(function() {
-            var doc, _i, _len, _results;
+          return Fibers(function() {
+            var doc, _i, _len;
 
-            _results = [];
             for (_i = 0, _len = jsonArray.length; _i < _len; _i++) {
               doc = jsonArray[_i];
-              _results.push(collection.insert(doc));
+              collection.insert(doc);
             }
-            return _results;
+            return typeof onComplete === "function" ? onComplete(jsonArray) : void 0;
           }).run();
-          return typeof onComplete === "function" ? onComplete(jsonArray) : void 0;
         });
         return fs.createReadStream("../client/app/" + publicFilePath).pipe(csvConverter);
       }
