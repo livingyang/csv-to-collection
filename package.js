@@ -1,8 +1,9 @@
 Package.describe({
-	summary: "csv-to-collection - load csv and create meteor collection"
+    summary: "csv-to-collection-2 - load csv and create meteor collection"
 });
 
+Npm.depends({csvtojson: '0.3.8'});
+
 Package.on_use(function (api) {
-	Npm.depends({csvtojson: '0.3.4'});
-	api.add_files(['CsvToCollection.js'], ['client', 'server']);
+    api.add_files(['CsvToCollection.js'], ['client', 'server']);
 });
