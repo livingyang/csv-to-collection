@@ -9,6 +9,7 @@
   csvtojson = Npm.require('csvtojson');
 
   this.ctc = {
+    _csvConverter: new csvtojson.core.Converter(),
     CreateCollection: function(publicFilePath, onComplete) {
       var collection, e;
 

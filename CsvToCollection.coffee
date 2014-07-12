@@ -3,10 +3,12 @@ fs = Npm.require 'fs'
 csvtojson = Npm.require 'csvtojson'
 
 @ctc =
+	_csvConverter: new csvtojson.core.Converter()
+	
 	CreateCollection: (publicFilePath, onComplete) ->
 		collection = new Meteor.Collection publicFilePath.split("/").pop()
 		if Meteor.isServer
-			try 
+			try
 				collection.remove {}
 				@AddCsvToCollection publicFilePath, collection, onComplete
 			catch e
