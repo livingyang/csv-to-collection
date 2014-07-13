@@ -1,27 +1,15 @@
-Fibers = Npm.require 'fibers'
-fs = Npm.require 'fs'
-csvtojson = Npm.require 'csvtojson'
+@c2c =
+	createCollection: (publicCsvPath) ->
+		new Meteor.Collection @getFilename publicCsvPath
 
-@ctc =
-	_csvConverter: new csvtojson.core.Converter()
-	
-	CreateCollection: (publicFilePath, onComplete) ->
-		collection = new Meteor.Collection publicFilePath.split("/").pop()
-		if Meteor.isServer
-			try
-				collection.remove {}
-				@AddCsvToCollection publicFilePath, collection, onComplete
-			catch e
-				console.log e
-				console.log "ctc.CreateCollection failed path: #{publicFilePath}"
-		collection
+	getFilename: (path) ->
+		(path.split "/").pop()
 
-	AddCsvToCollection: (publicFilePath, collection, onComplete) ->
-		if Meteor.isServer
-			csvConverter = new csvtojson.core.Converter()
-			csvConverter.on 'end_parsed', (jsonArray) ->
-				Fibers ->
-					collection.insert doc for doc in jsonArray
-					onComplete? jsonArray
-				.run()
-			fs.createReadStream("../client/app/#{publicFilePath}").pipe(csvConverter)
+if Meteor.isServer
+	CSV = Npm.require "comma-separated-values"
+
+	@c2c.addCsvStringToCollection = (collection, csvString) ->
+		collection.insert doc for doc in (new CSV csvString, header: true, cast: false, line: "\n").parse()
+
+	@c2c.addPublicCsvToCollection = (collection, path) ->
+		@addCsvStringToCollection collection, String((Npm.require "fs").readFileSync "../client/app/#{path}")
