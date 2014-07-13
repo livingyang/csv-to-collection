@@ -33,7 +33,7 @@ csv to collection for meteor
 	* collection : an instance of Meteor.Collection
 	* csvString : csv format string
 
-4. addPublicCsvToCollection(collection, path)
+4. c2c.addPublicCsvToCollection(collection, path)
 
 	**Server**
 
@@ -63,6 +63,7 @@ lib/MyData.coffee:
 	csvStringCollection = new Meteor.Collection "custom"
 
 server/main.coffee
+
 	# public csv file to collection
 	publicCsvCollection.remove {}
 	c2c.addPublicCsvToCollection publicCsvCollection, publicCsvPath
