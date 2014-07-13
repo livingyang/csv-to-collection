@@ -5,7 +5,7 @@ csv to collection for meteor
 
 ## api
 
-1. c2c.createCollection(publicCsvPath)
+1. ###c2c.createCollection(publicCsvPath)###
 
 	**Anywhere**
 
@@ -14,7 +14,7 @@ csv to collection for meteor
 	*arguments*
 	* publicCsvPath : csv file path at your public directory
 
-2. c2c.getFilename(path)
+2. ###c2c.getFilename(path)###
 
 	**Anywhere**
 
@@ -23,7 +23,7 @@ csv to collection for meteor
 	*arguments*
 	* path : csv file path at public directory
 
-3. c2c.addCsvStringToCollection(collection, csvString)
+3. ###c2c.addCsvStringToCollection(collection, csvString)###
 
 	**Server**
 
@@ -33,7 +33,7 @@ csv to collection for meteor
 	* collection : an instance of Meteor.Collection
 	* csvString : csv format string
 
-4. c2c.addPublicCsvToCollection(collection, path)
+4. ###c2c.addPublicCsvToCollection(collection, path)###
 
 	**Server**
 
