@@ -16,7 +16,7 @@ csv to collection for meteor
 
 2. c2c.getFilename(path)
 
-	** Anywhere **
+	**Anywhere**
 
 	return file name of path
 
@@ -25,7 +25,7 @@ csv to collection for meteor
 
 3. c2c.addCsvStringToCollection(collection, csvString)
 
-	** Server **
+	**Server**
 
 	convert csv string to json objects and insert to collection
 
@@ -35,7 +35,7 @@ csv to collection for meteor
 
 4. addPublicCsvToCollection(collection, path)
 
-	** Server **
+	**Server**
 
 	convert csv file to json objects and insert to collection
 
